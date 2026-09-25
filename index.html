@@ -51,6 +51,22 @@
                     spacing: {
                         '18': '4.5rem',
                         '22': '5.5rem'
+                    },
+
+                    keyframes: {
+                        fadeUp: {
+                            '0%': { opacity: '0', transform: 'translateY(18px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        floatSlow: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-12px)' }
+                        }
+                    },
+
+                    animation: {
+                        'fade-up': 'fadeUp .8s ease-out both',
+                        'float-slow': 'floatSlow 6s ease-in-out infinite'
                     }
                 }
             }
@@ -70,152 +86,211 @@
 
 
     <!--HEADER-->
-
-    <header class="
-    border-b
-    border-coffee-secondary/20
-    dark:border-coffee-dark-secondary/30
+    <header id="siteHeader" class="
+    sticky top-0 z-50 border-b border-coffee-secondary/20
+    dark:border-coffee-dark-secondary/30 bg-coffee-background/80
+    dark:bg-coffee-dark-background/80 backdrop-blur-md transition-all duration-300
 ">
-
-        <div class="
-        max-w-7xl
-        mx-auto
-        px-6
-        lg:px-8
-        h-20
-        flex
-        items-center
-        justify-between
-    ">
-
-            <!-- Logo -->
-
-            <a href="index.html" class="flex items-center gap-3">
-
-                <div class="
-                w-10
-                h-10
-                rounded-full
-                bg-coffee-primary
-                dark:bg-coffee-dark-primary
-                text-white
-                dark:text-coffee-text
-                flex
-                items-center
-                justify-center
-                font-heading
-                font-bold
-                text-lg
-            ">
-                    ☕
-                </div>
-
-                <span class="
-                font-heading
-                text-2xl
-                font-bold
-                tracking-wide
-            ">
-                    رشـفـة مـزاج
-                </span>
-
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            <a href="#home" class="flex items-center gap-3 shrink-0">
+                <div
+                    class="w-10 h-10 rounded-full bg-coffee-primary dark:bg-coffee-dark-primary text-white dark:text-coffee-text flex items-center justify-center font-heading font-bold text-lg">
+                    ☕</div>
+                <span class="font-heading text-2xl font-bold tracking-wide">رشـفـة مـزاج</span>
             </a>
 
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium" aria-label="التنقل الرئيسي">
+                <a href="#home" class="nav-link">الرئيسية</a>
+                <a href="about.html" class="nav-link">من نحن</a>
+                <a href="#offers" class="nav-link">ماذا نقدم</a>
+                <a href="#location" class="nav-link">موقعنا</a>
+            </nav>
 
-            <!-- Dark Mode Button -->
-
-            <button id="themeToggle" aria-label="Toggle dark mode" class="
-                w-10
-                h-10
-                rounded-full
-                border
-                border-coffee-secondary/30
-                dark:border-coffee-dark-secondary/40
-                flex
-                items-center
-                justify-center
-                hover:bg-coffee-secondary/10
-                dark:hover:bg-coffee-dark-secondary/20
-                transition
-            ">
-
-                <!-- Sun -->
-                <svg id="sunIcon" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor"
-                    viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364-.707.707M6.343 17.657l-.707.707m12.728 0-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" />
-                </svg>
-
-                <!-- Moon -->
-                <svg id="moonIcon" class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1 1 11.21 3
-                    7 7 0 0 0 21 12.79z" />
-                </svg>
-
-            </button>
-
+            <div class="flex items-center gap-2 md:gap-3">
+                <button id="searchToggle" type="button" aria-label="فتح البحث" aria-controls="search"
+                    class="icon-button">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="11" cy="11" r="7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m20 20-3.5-3.5" />
+                    </svg>
+                </button>
+                <button id="themeToggle" type="button" aria-label="تفعيل الوضع الداكن" class="icon-button">
+                    <svg id="sunIcon" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364-.707.707M6.343 17.657l-.707.707m12.728 0-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" />
+                    </svg>
+                    <svg id="moonIcon" class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                    </svg>
+                </button>
+                <button id="menuToggle" type="button" aria-label="فتح القائمة" aria-expanded="false"
+                    class="icon-button md:hidden">
+                    <svg id="burgerIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 7h16M4 12h16M4 17h16" />
+                    </svg>
+                    <svg id="closeIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 6l12 12M18 6 6 18" />
+                    </svg>
+                </button>
+            </div>
         </div>
-
+        <nav id="mobilePanel"
+            class="md:hidden max-h-0 overflow-hidden transition-all duration-300 ease-out border-t border-coffee-secondary/20 dark:border-coffee-dark-secondary/30"
+            aria-label="التنقل للجوال">
+            <div class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-1 text-sm font-medium">
+                <a href="#home"
+                    class="mobile-link py-3 border-b border-coffee-secondary/10 dark:border-coffee-dark-secondary/20">الرئيسية</a>
+                <a href="about.html"
+                    class="mobile-link py-3 border-b border-coffee-secondary/10 dark:border-coffee-dark-secondary/20">من
+                    نحن</a>
+                <a href="#offers"
+                    class="mobile-link py-3 border-b border-coffee-secondary/10 dark:border-coffee-dark-secondary/20">ماذا
+                    نقدم</a>
+                <a href="#location" class="mobile-link py-3">موقعنا</a>
+            </div>
+        </nav>
     </header>
+
+    <style>
+        .nav-link {
+            position: relative;
+            padding: .25rem 0;
+            transition: color .3s;
+        }
+
+        .nav-link:hover {
+            color: #6F4E37;
+        }
+
+        .dark .nav-link:hover {
+            color: #C69C6D;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: -.25rem;
+            width: 0;
+            height: 2px;
+            background: #6F4E37;
+            transition: width .3s;
+        }
+
+        .dark .nav-link::after {
+            background: #C69C6D;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .icon-button {
+            width: 2.5rem;
+            height: 2.5rem;
+            border: 1px solid rgb(166 123 91 / .3);
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color .3s, transform .3s;
+        }
+
+        .icon-button:hover {
+            background: rgb(166 123 91 / .1);
+            transform: translateY(-1px);
+        }
+
+        .dark .icon-button {
+            border-color: rgb(139 99 69 / .4);
+        }
+
+        .dark .icon-button:hover {
+            background: rgb(139 99 69 / .2);
+        }
+
+        @media (min-width: 768px) {
+            .icon-button.md\:hidden {
+                display: none;
+            }
+        }
+    </style>
 
 
     <!--MAIN-->
 
     <main>
 
-        <section class="
-        min-h-[60vh]
-        flex
-        items-center
-        justify-center
-        text-center
-        px-6
-    ">
-
-            <div class="max-w-2xl">
-
-                <p class="
-                uppercase
-                tracking-[0.3em]
-                text-sm
-                text-coffee-primary
-                dark:text-coffee-dark-primary
-                mb-4
-            ">
-                    كل رشفة تحكي حكاية
-                </p>
-
-                <h1 class="
-                font-heading
-                text-5xl
-                md:text-6xl
-                font-bold
-                leading-tight
-                mb-6
-            ">
-                    رشـفـة
-                    <span class="
-                    text-coffee-primary
-                    dark:text-coffee-dark-primary
-                ">
-                        مـزاج
-                    </span>
-                </h1>
-
-                <p class="
-                text-base
-                md:text-lg
-                opacity-75
-                leading-8
-            ">
-                    من حبة الـبُـن إلى فـنـجـانـك تُحضر بـشـغـف لتستمتع بـهـا.
-                </p>
-
+        <section id="home" class="min-h-[60vh] py-16 lg:py-0 px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-14 lg:gap-10 items-center">
+                <div class="max-w-2xl mx-auto lg:mx-0 text-center lg:text-right animate-fade-up">
+                    <p
+                        class="uppercase tracking-[0.3em] text-sm text-coffee-primary dark:text-coffee-dark-primary mb-4">
+                        كل رشفة تحكي حكاية</p>
+                    <h1 class="font-heading text-5xl md:text-6xl font-bold leading-tight mb-6">
+                        رشـفـة <span class="text-coffee-primary dark:text-coffee-dark-primary">مـزاج</span>
+                    </h1>
+                    <p class="text-base md:text-lg opacity-75 leading-8 mb-8">
+                        من حبة الـبُـن إلى فـنـجـانـك تُحضر بـشـغـف لتستمتع بـهـا.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <a href="#offers"
+                            class="w-full sm:w-auto text-center px-8 py-3.5 rounded-full bg-coffee-primary dark:bg-coffee-dark-primary text-white dark:text-coffee-dark-background text-sm font-semibold tracking-wide shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition">اكتشف
+                            القائمة</a>
+                        <a href="#location"
+                            class="w-full sm:w-auto text-center px-8 py-3.5 rounded-full border border-coffee-primary dark:border-coffee-dark-primary text-coffee-primary dark:text-coffee-dark-primary text-sm font-semibold tracking-wide hover:bg-coffee-primary/10 dark:hover:bg-coffee-dark-primary/10 hover:-translate-y-0.5 transition">احجز
+                            طاولتك</a>
+                    </div>
+                </div>
+                <div class="relative flex justify-center lg:justify-start animate-fade-up" style="animation-delay:.15s">
+                    <div
+                        class="absolute w-72 h-72 md:w-96 md:h-96 rounded-full bg-coffee-accent/30 dark:bg-coffee-dark-accent/20 blur-3xl opacity-70">
+                    </div>
+                    <div
+                        class="absolute -bottom-6 left-6 w-40 h-40 rounded-full bg-coffee-secondary/30 dark:bg-coffee-dark-secondary/20 blur-2xl opacity-60">
+                    </div>
+                    <svg viewBox="0 0 360 360"
+                        class="relative z-10 w-64 sm:w-80 md:w-96 drop-shadow-2xl animate-float-slow hover:scale-105 transition-transform duration-500"
+                        aria-label="فنجان قهوة">
+                        <ellipse cx="180" cy="300" rx="95" ry="14" fill="#000" opacity=".12" />
+                        <path d="M85 150h190l-14 90c-4 28-30 48-58 48h-46c-28 0-54-20-58-48Z"
+                            class="fill-coffee-primary dark:fill-coffee-dark-primary" />
+                        <path d="M85 150h190v14H85Z" class="fill-coffee-secondary dark:fill-coffee-dark-secondary"
+                            opacity=".6" />
+                        <path d="M275 165c28-4 46 14 44 38-2 22-24 36-48 32l4-20c12 2 22-4 24-16 2-10-4-18-16-18Z"
+                            class="fill-coffee-primary dark:fill-coffee-dark-primary" />
+                        <ellipse cx="180" cy="150" rx="95" ry="16"
+                            class="fill-coffee-text/90 dark:fill-coffee-dark-background/80" />
+                        <ellipse cx="180" cy="146" rx="80" ry="11"
+                            class="fill-coffee-accent dark:fill-coffee-dark-accent" opacity=".85" />
+                        <g class="text-white/80 dark:text-coffee-dark-text/60" stroke="currentColor" stroke-width="6"
+                            stroke-linecap="round" fill="none">
+                            <path d="M150 120c-10-14 10-22 0-38" />
+                            <path d="M190 120c-10-14 10-22 0-38" />
+                        </g>
+                    </svg>
+                    <div
+                        class="absolute -bottom-4 sm:bottom-4 -right-2 sm:right-6 z-20 flex items-center gap-3 rounded-2xl border border-coffee-secondary/20 dark:border-coffee-dark-secondary/30 bg-coffee-background/80 dark:bg-coffee-dark-background/80 backdrop-blur-md shadow-lg px-4 py-3">
+                        <span
+                            class="w-8 h-8 shrink-0 rounded-full bg-coffee-primary dark:bg-coffee-dark-primary text-white dark:text-coffee-dark-background flex items-center justify-center font-heading font-bold text-sm">☕</span>
+                        <div class="leading-tight text-right">
+                            <p class="text-sm font-bold">100% بُن مختص</p>
+                            <p class="text-xs opacity-70">تحميص طازج أسبوعيًا</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-
         </section>
 
-        <section class="
+        <section id="search" class="
+        scroll-mt-24
         px-6
         py-16
         text-center
@@ -294,7 +369,7 @@
 
         </section>
 
-        <section class="
+        <section id="offers" class="
         px-6
         py-16
         lg:px-8
@@ -414,7 +489,7 @@
 
         </section>
 
-        <section class="px-6 py-16 lg:px-8" aria-labelledby="testimonials-heading">
+        <section id="location" class="px-6 py-16 lg:px-8" aria-labelledby="testimonials-heading">
 
             <div class="max-w-7xl mx-auto">
 
@@ -732,13 +807,13 @@
                         </li>
 
                         <li>
-                            <a href="#" class="opacity-80 hover:opacity-100 transition">
+                            <a href="#offers" class="opacity-80 hover:opacity-100 transition">
                                 ماذا نقدم
                             </a>
                         </li>
 
                         <li>
-                            <a href="#" class="opacity-80 hover:opacity-100 transition">
+                            <a href="#location" class="opacity-80 hover:opacity-100 transition">
                                 موقعنا
                             </a>
                         </li>
@@ -955,6 +1030,10 @@
     <script>
 
         const themeToggle = document.getElementById('themeToggle');
+        const updateThemeLabel = () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            themeToggle.setAttribute('aria-label', isDark ? 'تفعيل الوضع الفاتح' : 'تفعيل الوضع الداكن');
+        };
 
         themeToggle.addEventListener('click', () => {
 
@@ -967,6 +1046,7 @@
                 'theme',
                 isDark ? 'dark' : 'light'
             );
+            updateThemeLabel();
 
         });
 
@@ -976,6 +1056,7 @@
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
         }
+        updateThemeLabel();
 
         const coffeeSearch = document.getElementById('coffeeSearch');
         const productCards = document.querySelectorAll('[aria-labelledby="products-heading"] article');
@@ -999,6 +1080,44 @@
 
             noResults.classList.toggle('hidden', visibleCards > 0);
         });
+
+        const searchToggle = document.getElementById('searchToggle');
+        const menuToggle = document.getElementById('menuToggle');
+        const mobilePanel = document.getElementById('mobilePanel');
+        const burgerIcon = document.getElementById('burgerIcon');
+        const closeIcon = document.getElementById('closeIcon');
+        const searchSection = document.getElementById('search');
+
+        function setMobileMenu(open) {
+            menuToggle.setAttribute('aria-expanded', String(open));
+            mobilePanel.style.maxHeight = open ? `${mobilePanel.scrollHeight}px` : '0px';
+            burgerIcon.classList.toggle('hidden', open);
+            closeIcon.classList.toggle('hidden', !open);
+        }
+
+        searchToggle.addEventListener('click', () => {
+            setMobileMenu(false);
+            searchSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setTimeout(() => coffeeSearch.focus(), 350);
+        });
+
+        menuToggle.addEventListener('click', () => {
+            setMobileMenu(menuToggle.getAttribute('aria-expanded') !== 'true');
+        });
+
+        document.querySelectorAll('.mobile-link').forEach((link) => {
+            link.addEventListener('click', () => setMobileMenu(false));
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                setMobileMenu(false);
+            }
+        });
+
+        window.addEventListener('scroll', () => {
+            document.getElementById('siteHeader').classList.toggle('shadow-lg', window.scrollY > 8);
+        }, { passive: true });
 
     </script>
 
