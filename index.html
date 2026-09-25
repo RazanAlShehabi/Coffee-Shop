@@ -403,6 +403,10 @@
 
                     </article>
 
+                    <p id="noResults" class="hidden col-span-full text-center text-lg text-coffee-text dark:text-coffee-dark-text opacity-75 mt-8">
+                        عذراً، لم نتمكن من العثور على ما تبحث عنه.
+                    </p>
+
                 </div>
 
             </div>
@@ -936,6 +940,29 @@
         if (localStorage.getItem('theme') === 'dark') {
             document.documentElement.classList.add('dark');
         }
+
+        const coffeeSearch = document.getElementById('coffeeSearch');
+        const productCards = document.querySelectorAll('[aria-labelledby="products-heading"] article');
+        const noResults = document.getElementById('noResults');
+
+        coffeeSearch.addEventListener('input', () => {
+            const searchTerm = coffeeSearch.value.trim().toLowerCase();
+            let visibleCards = 0;
+
+            productCards.forEach((card) => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+                const isMatch = title.includes(searchTerm) || description.includes(searchTerm);
+
+                card.classList.toggle('hidden', !isMatch);
+
+                if (isMatch) {
+                    visibleCards += 1;
+                }
+            });
+
+            noResults.classList.toggle('hidden', visibleCards > 0);
+        });
 
     </script>
 
